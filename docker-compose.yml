@@ -27,7 +27,7 @@ services:
     restart: always
     environment:
       - NODE_ENV=production
-      - MONGO_URI=mongodb://mongo:27017/myapp
+      - MONGO_URI=${MONGO_URI}
     networks:
       - app-net
 
@@ -35,6 +35,9 @@ services:
     image: mongo:6
     container_name: myapp-mongo
     restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - mongo_data:/data/db
     networks:
