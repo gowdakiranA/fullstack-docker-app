@@ -1,5 +1,5 @@
-version: "3.8"
 
+version: "3.8"
 services:
   nginx:
     image: nginx:alpine
@@ -15,20 +15,19 @@ services:
       - app-net
 
   frontend:
-    build: ./frontend
+    image: ${DOCKERHUB_USERNAME}/fullstack-frontend:latest
     container_name: myapp-frontend
     restart: always
     networks:
       - app-net
 
   backend:
-    build: ./backend
+    image: ${DOCKERHUB_USERNAME}/fullstack-backend:latest
     container_name: myapp-backend
     restart: always
     environment:
       - NODE_ENV=production
       - MONGO_URI=mongodb://mongo:27017/myapp
-      # If your code expects DB url as db.url in ./app/models, ensure it reads MONGO_URI or use env variable there.
     networks:
       - app-net
 
@@ -46,3 +45,4 @@ networks:
 
 volumes:
   mongo_data:
+
